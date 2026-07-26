@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرسیار و بەسەرهاتی مامۆستا بەڕێز</title>
+    <style>
+        body {
+            font-family: 'Tahoma', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            width: 500px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: #2c3e50;
+        }
+        .intro-box, .story-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            border: 1px solid #e1e8ed;
+            color: #4f545c;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .options button:hover {
+            background: #2980b9;
+        }
+        #quiz-section, #result-section {
+            display: none;
+        }
+        #intro-section {
+            display: block;
+        }
+        audio {
+            margin-top: 15px;
+            width: 100%;
+        }
+        .start-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .start-btn:hover {
+            background: #219653;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- بەشی سەرەتا: هاتنەژوورەوەی مامۆستا بەڕێز -->
+        <div id="intro-section">
+            <h2 style="color: #e67e22;">سەرەتای بەزمەکە: مامۆستا بەڕێز دێتە پۆل! 🚪🏃‍♂️</h2>
+            <div class="intro-box">
+                لە پۆلەکەدا بێدەنگییەکی ساختە هەبوو؛ یەکێک بە دەنگێکی نزم خەریکی قسەکردن بوو، ئەوی تر قەڵەمەکەی دەهاویشت. لە ناكاودا، دەرگاکە کرایەوە و <strong>مامۆستا بەڕێز</strong> بە هەنگاوێکی جدییەوە هاتە ژوورەوە!<br><br>
+                یەکێک لە قوتابییە هەجوولەکان بە چرپە وتی: <em>"کوڕینە، سەیرکەن! ڕادارەکە کەوتە کار، خێرا شتەکان شارنەوە!"</em>
+            </div>
+            <button class="start-btn" onclick="startQuiz()">دەستپێکردنی پرسیارەکان 🚀</button>
+        </div>
+
+        <!-- بەشی پرسیارەکان -->
+        <div id="quiz-section">
+            <h2 id="question-text">پرسیار لێرە دەرکەوێت...</h2>
+            <div class="options" id="options-container">
+                <!-- هەڵبژاردنەکان لێرە دادەنرێن -->
+            </div>
+        </div>
+
+        <!-- بەشی کۆتایی، بەسەرهات و گۆرانی -->
+        <div id="result-section">
+            <h2 style="color: #27ae60;">کۆتایی بەزمەکە و گۆرانییەکەی مامۆستا بەڕێز! 🎵😂</h2>
+            <div class="story-box">
+                <strong>گەرمای هاوین بوو، مامۆستا بەڕێز بە قاچ چوو بۆ قوتابخانە!</strong><br>
+                کاتێک هاتە ژوورەوە، کۆمەڵە تەلەبەیەکی هەجوولی بینی، ئیتر شێت بوو و لە هەموویان دا! پۆلەکە بوو بە قیژە و ڕاکردن.<br><br>
+                دواتر گەڕایەوە ماڵەوە و چوو سەر یاریی <strong>(تەشقەرە)</strong> لەگەڵ <strong>دیار و حەمەدا</strong>؛ لەوێ کەسیان ناوێرێت دەنگی لێوە بێت و هەمیشە مامۆستا سەروەرە!
+            </div>
+            
+            <p style="margin-top: 10px; font-size: 13px; color: #e67e22;">گوێ لە گۆرانییە تایبەتەکەی مامۆستا بەڕێز بگرە:</p>
+            <audio id="audio-player" controls>
+                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+                وێبسایتەکەت پشتگیری فایلی دەنگی ناکات.
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "پرسیاری ١: مامۆستا بەڕێز بەو گەرمایە چۆن چوو بۆ قوتابخانە؟",
+                options: ["بە فڕۆکە", "بە قاچ و بە تووڕەیی", "بە پاسکیل", "بە پیاده‌ڕەوی سارد"]
+            },
+            {
+                question: "پرسیاری ٢: کاتێک مامۆستا تەلەبە هەجوولەکانی بینی، چۆن ڕەفتاری کرد؟",
+                options: ["پێبکەنی و شیرینی دابەش کرد", "شێت بوو و لە هەموویانی دا", "خەوت", "دەرچوو بۆ دەرەوە"]
+            },
+            {
+                question: "پرسیاری ٣: لە ماڵەوە کاتێک یاری (تەشقەرە)ی کرد لەگەڵ دیار و حەمە، چی روویدا؟",
+                options: ["کەسیان نەیاربوو قسە بکات", "دیار بردەوە", "حەمە شێت بوو", "هەموویان یاریکردنیان گۆڕی"]
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        const introSection = document.getElementById("intro-section");
+        const quizSection = document.getElementById("quiz-section");
+        const resultSection = document.getElementById("result-section");
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const audioPlayer = document.getElementById("audio-player");
+
+        function startQuiz() {
+            introSection.style.display = "none";
+            quizSection.style.display = "block";
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                let currentQ = questions[currentQuestionIndex];
+                questionText.innerText = currentQ.question;
+                optionsContainer.innerHTML = "";
+
+                currentQ.options.forEach(option => {
+                    let btn = document.createElement("button");
+                    btn.innerText = option;
+                    btn.onclick = () => nextQuestion();
+                    optionsContainer.appendChild(btn);
+                });
+            } else {
+                showResult();
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            quizSection.style.display = "none";
+            resultSection.style.display = "block";
+            audioPlayer.play().catch(error => {
+                console.log("لێدانی خۆکار ڕێگری لێکرا لەلایەن وێبگەڕەوە.");
+            });
+        }
+    </script>
+
+</body>
+</html><div style="text-align: center; margin-top: 20px;">
+    <!-- دوگمەی گەڕانەوە -->
+    <a href="index.html" style="display: inline-block; padding: 10px 20px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px; margin-bottom: 15px;">گەڕانەوە دواوە ⬅️</a>
+    
+    <br>
+
+    <!-- پلەیەری دەنگیی گۆرانییەکە -->
+    <audio controls>
+        <source src="لینکی_گۆرانییەکەت_لێرە_دابنە.mp3" type="audio/mpeg">
+        وەشانەکە گونجاو نییە لەگەڵ وێبگەڕەکەتدا.
+    </audio>
+</div>
+https://suno.com/radio/song/5d1bc125-3f7e-4fd9-9330-917acfcf199a
