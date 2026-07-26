@@ -7,21 +7,36 @@
     <style>
         body {
             font-family: 'Tahoma', sans-serif;
-            background: linear-gradient(135deg, #e0eafc, #cfdef3);
-            color: #333333;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        /* دیکۆری ئەستێرەکان لە پاشبنەمادا */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(white 1px, transparent 0), radial-gradient(white 1.5px, transparent 0);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.3;
+            z-index: -1;
         }
         .container {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             width: 500px;
             text-align: center;
+            color: #333333;
+            border: 2px solid #f1c40f;
         }
         h2 {
             margin-bottom: 20px;
@@ -38,7 +53,7 @@
             margin-bottom: 20px;
             border: 1px solid #e1e8ed;
             color: #4f545c;
-            max-height: 220px;
+            max-height: 200px;
             overflow-y: auto;
         }
         .options button {
@@ -53,9 +68,11 @@
             cursor: pointer;
             font-size: 16px;
             transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .options button:hover {
             background: #2980b9;
+            transform: translateY(-2px);
         }
         #quiz-section, #result-section {
             display: none;
@@ -66,6 +83,7 @@
         audio {
             margin-top: 15px;
             width: 100%;
+            border-radius: 8px;
         }
         .start-btn {
             background: #27ae60;
@@ -78,18 +96,22 @@
             margin-top: 15px;
             transition: 0.3s;
             width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .start-btn:hover {
             background: #219653;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
+    <div class="stars"></div>
+
     <div class="container">
         <!-- بەشی سەرەتا: هاتنەژوورەوەی مامۆستا بەڕێز -->
         <div id="intro-section">
-            <h2 style="color: #e67e22;">سەرەتای بەزمەکە: مامۆستا بەڕێز دێتە پۆل! 🚪🏃‍♂️</h2>
+            <h2 style="color: #e67e22;">✨ سەرەتای بەزمەکە: مامۆستا بەڕێز دێتە پۆل! 🚪🏃‍♂️</h2>
             <div class="intro-box">
                 لە پۆلەکەدا بێدەنگییەکی ساختە هەبوو؛ یەکێک بە دەنگێکی نزم خەریکی قسەکردن بوو، ئەوی تر قەڵەمەکەی دەهاویشت. لە ناكاودا، دەرگاکە کرایەوە و <strong>مامۆستا بەڕێز</strong> بە هەنگاوێکی جدییەوە هاتە ژوورەوە!<br><br>
                 یەکێک لە قوتابییە هەجوولەکان بە چرپە وتی: <em>"کوڕینە، سەیرکەن! ڕادارەکە کەوتە کار، خێرا شتەکان شارنەوە!"</em>
@@ -107,7 +129,7 @@
 
         <!-- بەشی کۆتایی، بەسەرهات و گۆرانی -->
         <div id="result-section">
-            <h2 style="color: #27ae60;">کۆتایی بەزمەکە و گۆرانییەکەی مامۆستا بەڕێز! 🎵😂</h2>
+            <h2 style="color: #27ae60;">🌟 کۆتایی بەزمەکە و گۆرانییەکەی مامۆستا بەڕێز! 🎵😂</h2>
             <div class="story-box">
                 <strong>گەرمای هاوین بوو، مامۆستا بەڕێز بە قاچ چوو بۆ قوتابخانە!</strong><br>
                 کاتێک هاتە ژوورەوە، کۆمەڵە تەلەبەیەکی هەجوولی بینی، ئیتر شێت بوو و لە هەموویان دا! پۆلەکە بوو بە قیژە و ڕاکردن.<br><br>
@@ -116,7 +138,7 @@
             
             <p style="margin-top: 10px; font-size: 13px; color: #e67e22;">گوێ لە گۆرانییە تایبەتەکەی مامۆستا بەڕێز بگرە:</p>
             <audio id="audio-player" controls>
-                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+                <source src="song.mp3" type="audio/mp3">
                 وێبسایتەکەت پشتگیری فایلی دەنگی ناکات.
             </audio>
         </div>
@@ -183,120 +205,6 @@
             });
         }
     </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="ku" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>گۆرانی و بەسەرهاتی مامۆستا بەڕێز</title>
-    <style>
-        body {
-            font-family: Tahoma, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            padding: 15px;
-            max-width: 800px;
-            margin: auto;
-            line-height: 1.6;
-        }
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1, h2 {
-            color: #d9534f;
-            text-align: center;
-        }
-        .lyrics {
-            background: #f9f9f9;
-            padding: 15px;
-            border-right: 4px solid #d9534f;
-            margin: 20px 0;
-            white-space: pre-line;
-            font-size: 14px;
-        }
-        .quiz-box {
-            background: #eef9ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        .audio-box {
-            text-align: center;
-            margin: 20px 0;
-            background: #fff5f5;
-            padding: 15px;
-            border-radius: 8px;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>گۆرانی و بەسەرهاتی مامۆستا بەڕێز</h1>
-
-    <!-- بەشی گۆرانی و پلەیەر -->
-    <div class="audio-box">
-        <h3>گوێبیستی گۆرانییەکە ببن:</h3>
-        <audio controls style="width: 100%; max-width: 100%;">
-            <source src="song.mp3" type="audio/mpeg">
-            وێبگەڕەکەت پشتگیری فایلی دەنگی ناکات.
-        </audio>
-        <br><br>
-        <!-- ئەگەر لینکی سۆنۆت هەیە، دەتوانیت لە خوارەوەش بیکەیتە دوگمە -->
-        <a href="https://suno.com" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #d9534f; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">🔗 کردنەوەی گۆرانی لە سۆنۆ</a>
-    </div>
-
-    <!-- دوگمەی گەڕانەوە -->
-    <div style="text-align: center; margin-top: 15px;">
-        <a href="index.html" style="display: inline-block; padding: 8px 15px; background-color: #333; color: #fff; text-decoration: none; border-radius: 5px;">گەڕانەوە دواوە ⬅️</a>
-    </div>
-
-    <hr style="margin: 30px 0;">
-
-    <!-- بەشی بەسەرهات و تێکستی گۆرانی -->
-    <h2>بەسەرهاتی مامۆستا بەڕێز</h2>
-    <div class="lyrics">
-[بەشی یەکەم: ڕۆشتن بۆ قوتابخانە]
-گەرما دەبڕژێ، تیشکی خۆر وەکو ئاگر،
-مامۆستا بەڕێز دەڕوات بە ڕێگادا بە قاچ و بە باوەڕ!
-چاکەت لە کۆڵ، عەینەک لە چاو، وەک سەرکردەی جیهان،
-بەرەو قوتابخانە دەچێت، نازانێت چ بەزمێکی لە پیشە لەو ژوورەدا بۆی دانراوە هان!
-
-[بەشی دووەم: هاتنەژوورەوە و شێت بوون]
-دەرگا کرایەوە، مامۆستا سەیر دەکات...
-تەلەبە هەجوولەکان، یەکێک بە دەنگ قسە دەکات، یەکێک لەو لا تیشک دەدات!
-یەکێک لەسەر ڕەحلە نووستووە، یەکێک قەڵەم دەهاویشت،
-مامۆستا بەڕێز لێرەدا دەگەڕێت و مێشکی تەقی، بەتەواوی شێت بوو، عەقڵی نەما و پڕ لە تووڕەیی گەیشت!
-
-[بەشی سێیەم: لێدان و پۆلی چۆڵ]
-هاواری کرد: "ئەوە چییە؟! من لێرە دەمکوژن?!"
-دەستی کردە لێدان، بە دار و قەڵەم و کتێب هەموویانی دا بە زەویدا بە توندترین شێواز و تووڕەبوون!
-پۆلەکە بوو بە قیژە، هەموویان ڕایان کردە دەرەوە،
-تەنها بێدەنگییەی مردوو لەو پۆلەدا مایەوە!
-
-[بەشی چوارەم: ماڵەوە و یاری تەشقەرە لەگەڵ دیار و حەمە]
-دواتر مامۆستا گەڕایەوە ماڵەوە ماندوو و پڕ لە جۆش،
-چوو لەسەر ئینتەرنێت، یاریی (تەشقەرە)ی کردەوە بە جۆش و خروش!
-لەوێ دیار و حەمەی بینی، خەریکی قسە و بەزم بوون،
-کە مامۆستایان بینی، هەر هەموویان قوت بوونەوە و بوونە مێش و بێدەنگ بوون!
-کەس ناتوانێت ناوێرێت قسەیەک بکات، چونکە مامۆستا بەڕێز پادشای یاری و پۆلە،
-هەم لە پۆلدا تۆقێنەرە، هەم لە یاریشدا هەر خۆی سەروەرە و پێشەنگە، بە ڕێز و سڵاو بۆ مامۆستا بەڕێز و دەستەی خۆش!
-    </div>
-
-    <!-- بەشی پرسیارەکان -->
-    <div class="quiz-box">
-        <h2>پرسیارەکان سەبارەت بە بەسەرهاتەکە</h2>
-        <p><strong>پرسیاری یەکەم:</strong> مامۆستا بەڕێز لە پۆلدا چۆن ڕەفتاری کرد کاتێک تەلەبەکان شێتیان کرد؟</p>
-        <p><strong>پرسیاری دووەم:</strong> ناوی ئەو یارییە چی بوو کە مامۆستا لە ماڵەوە لەگەڵ دیار و حەمە ئەنجامی دا؟</p>
-    </div>
-
-</div>
 
 </body>
 </html>
